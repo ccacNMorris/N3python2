@@ -9,27 +9,36 @@ import pprint
 import requests, json
 
 cheapest = []
-user_add = input('Put in any zip code:')
+# user_add = input('Put in any zip code:')
+zipcode = 15201
+while zipcode <= 15295:
 
-payload = {'zip': user_add}
+    payload = {'zip': zipcode}
 
-req = requests.get('http://opentable.herokuapp.com/api/restaurants', params=payload)
+    req = requests.get('http://opentable.herokuapp.com/api/restaurants', params=payload)
 
-if(int(req.status_code) == 200):
-#     print(req.headers.keys())
-    apiDict = json.loads(req.text)
-    
-    pprint.pprint(apiDict)
+    if(int(req.status_code) == 200):
+    #     print(req.headers.keys())
+        apiDict = json.loads(req.text)
 
-for key in apiDict:
-    
-    if apiDict["price"] == '1':
-    
-        cheapest.append(key)
-    
-    if apiDict["price"] == '2':
-    
-        cheapest.append(key)
-    
-print(json.dumps(cheapest, indent=4, sort_keys=True)) 
-    
+        # pprint.pprint(apiDict)
+
+        for key in apiDict['restaurants']:
+
+            if key["price"] == 3:
+
+                cheapest.append(key)
+
+            if key["price"] == 4:
+
+                cheapest.append(key)
+    zipcode += 1
+    print('... Thinking')
+print(json.dumps(cheapest, indent=4, sort_keys=True))
+
+
+# with open('restaurants_cheapest.json', 'w') as out_file:
+#     json.dump(cheapest, out_file, indent=3)
+
+with open('restaurants_expensive.json', 'w') as out_file:
+    json.dump(cheapest, out_file, indent=3)
