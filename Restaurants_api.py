@@ -7,7 +7,11 @@ Created on Wed Feb 26 20:08:50 2020
 """
 import pprint
 import requests, json
-
+'''
+    Iterates through zipcodes, from 15201-15295. Once each zipcode has been
+        analyzed, it is stored to a list. Once all are done, it opens a .json
+        file, then writes the list to it.
+'''
 cheapest = []
 # user_add = input('Put in any zip code:')
 zipcode = 15201
