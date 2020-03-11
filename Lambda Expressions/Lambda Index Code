@@ -1,0 +1,69 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Mar  8 19:53:08 2020
+
+@author: leemshari
+"""
+"""
+This example takes existing indicies from gapminder and uses "lambda", "map", 
+"list", and "filter" funcitons to get the desired "Quality of Life" index.  I assigned estimated 
+weights to each existing index (Democracy index, Basic Welfare index, Fundamental Rights index)
+and then multiplied the weight mby the score.  I then added the scores together
+to get an overall score for the new index for each country (U.S., U.K., Finland)
+
+Got index information from link below using 2018 data
+https://www.gapminder.org/data/
+"""
+
+#U.S, U.K, and Finland respectively
+
+democracy = [79.6, 85.3, 91.4]
+
+welfare = [78, 91, 90]
+
+rights = [79, 82, 90]
+
+
+
+hiweight = list(map(lambda x: x * (.5), welfare))
+
+weight2 = list(map(lambda x: (.25) * x , democracy))
+
+weight3 = list(map(lambda x: (.25) * x, rights))
+
+indicies = list(map(lambda x,y,z:x+y+z, hiweight, weight2, weight3))
+
+#alternatively this can be done in one line
+
+indicies2 = list(map(lambda x,y,z: .25*x + .5*y + .25*z, democracy, welfare, rights))
+
+
+highest = list(filter(lambda x: x == max(indicies2), indicies2))
+
+lowest = list(filter(lambda x: x == min(indicies2), indicies2))
+
+print("Finland's Quality of life index is", str(highest)[1:-1],",which is the highest.")
+print("USA's Quality of life index is", str(lowest)[1:-1],",which is the lowest.")
+
+
+
+"""
+Exercise:
+    Create your own index using the gapminder data (link listed above).  Pick 3-4
+    already established indices for 2-3 countries and decide on proper weights for each
+    index.  As in the above example combine the weights abd initial scores then add 
+    the new values to the other altered scores.
+
+
+
+Extension 1
+Ingest in all the countries 2018 scores for a few selected indicies and find the 
+highest score and lowest score for those indicies using lambda
+
+Extension 2
+Ingest in all the countries 2018 scores for a few selected indicies then repeat the
+above process laid out in the example to create a new index then find the highest
+and lowest within the new index
+"""
+
